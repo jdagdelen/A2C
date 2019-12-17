@@ -166,7 +166,7 @@ class Trainer(BaseTrainer):
             # plt.imsave(fname="img" + str(n) + ".png", arr=observation[0, :, :, 0], cmap='gray')
 
             # Tensorboard dump, divided by 100 to rescale (to make the steps make sense)
-            self.env_summary_logger.add_summary_all(int(self.global_time_step / 100), info)
+            self.env_summary_logger.add_summary_all(int(self.global_time_step), info)
             self.global_time_step += 1
             self.global_time_step_assign_op.eval(session=self.sess, feed_dict={
                 self.global_time_step_input: self.global_time_step})

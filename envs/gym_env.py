@@ -11,13 +11,19 @@ class GymEnv(BaseEnv):
         self.seed = seed
         self.make()
         # Get the inside of the wrappers!
-        self.gym_env = self.env.env.env.env.env.env.env
-        self.monitor = self.env.env.env.env.env.env.monitor
+        self.gym_env = self.env.unwrapped
+        if not self.env_name == "Open-Pit-Mine-v0":
+            self.monitor = self.env.env.env.env.env.env.monitor
+        else:
+            self.monitor = self.env.monitor
 
     def make(self):
         env = Monitor(gym.make(self.env_name), self.rank)
         env.seed(self.seed + self.rank)
-        self.env = wrap_deepmind(env)
+        if not self.env_name == "Open-Pit-Mine-v0":
+            self.env = wrap_deepmind(env)
+        else:
+            self.env = env
         return env
 
     def step(self, data):

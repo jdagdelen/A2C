@@ -4,7 +4,6 @@ from models.model import Model
 from train import Trainer
 from utils.utils import set_all_global_seeds
 
-
 class A2C:
     def __init__(self, sess, args):
         self.args = args
@@ -82,7 +81,7 @@ class A2C:
         dones = []
         # states and dones are for LSTM, leave them for now!
         action, value, states = self.model.step_policy.step(observation, states, dones)
-        return action, value
+        return action, value___
 
     # The reason behind this design pattern is to pass the function handler when required after serialization.
     @staticmethod
